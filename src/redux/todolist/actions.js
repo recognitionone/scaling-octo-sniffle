@@ -15,4 +15,9 @@ export const toggleTodo = id => ({
   payload: { id }
 });
 
-export const setFilter = filter => ({ type: SET_FILTER, payload: { filter } });
+export const setFilter = filter => ({ 
+	type: SET_FILTER, 
+	payload: { 
+		filter 
+	} 
+});
