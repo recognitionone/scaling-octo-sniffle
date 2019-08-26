@@ -1,4 +1,4 @@
-export const getGalleryStateList = (store) => store.forecast.list;
+export const getGalleryStateList = (store) => store.list
 
 export const forecastSampleSelector = (store) =>
   getGalleryStateList(store) ? {
