@@ -1,37 +1,41 @@
 import React, { Component } from "react"
-// import AddTodo from "./components/todolist/AddTodo"
-// import TodoList from "./components/todolist/TodoList"
-// import VisibilityFilters from "./components/todolist/VisibilityFilters"
-import Forecast from './components/forecast/Forecast'
+import ForecastCard from './components/forecast/ForecastCard'
 import "./styles/styles.css"
-import { forecastSampleSelector } from './redux/forecast/forecast.selectors'
+import {
+  weatherSampleSelector,
+  getCityName,
+  getCityLat,
+  getCityLon } from './redux/forecast/forecast.selectors'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      componentForecast: null,
-    }
-  }
- 
-  componentDidUpdate() {
-    this.setState({ componentForecast: this.props.forecast })
-  }
-
 	render() {
    return (
       <div className="todo-app">
-        <Forecast forecast={this.state.componentForecast} />
+        <ForecastCard 
+          city={this.props.city}
+          forecast={this.props.forecast}
+        />
       </div>
     );
 	}
 }
 
+App.propTypes = {
+  city: PropTypes.object.isRequired,
+  forecast: PropTypes.object.isRequired,
+}
+
 const mapStateToProps = (state) => {
-	const forecast = forecastSampleSelector(state)
-	return { forecast }
+  const cityName = getCityName(state)
+  const cityLat = getCityLat(state)
+  const cityLon = getCityLon(state)
+  const forecast = weatherSampleSelector(state)
+  const city = { cityName, cityLat, cityLon }
+  
+  return { city, forecast }
 }
 
 export default connect(mapStateToProps)(App)

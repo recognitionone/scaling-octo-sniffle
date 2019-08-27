@@ -6,7 +6,7 @@ const initialState = {}
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case GET_FORECAST_SUCCESS : {
-			return action.payload;
+			return action.payload.forecast;
 		}
 		default: 
 			return state;
