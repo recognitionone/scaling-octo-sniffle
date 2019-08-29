@@ -27,7 +27,8 @@ class ForecastCard extends Component {
           city = {this.props.city} />
         <ForecastList
           searchInput = {this.state.searchInput}
-          forecast = {this.props.forecast} />
+          forecast = {this.props.forecast}
+          data={this.props.data} />
       </CardContent>
     </Card>
     )

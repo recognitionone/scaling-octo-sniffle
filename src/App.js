@@ -5,9 +5,16 @@ import {
   weatherSampleSelector,
   getCityName,
   getCityLat,
-  getCityLon } from './redux/forecast/forecast.selectors'
+  getCityLon,
+  lvlWeather } from './redux/forecast/forecast.selectors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+
+// import { bindActionCreators } from "redux";
+// import { fetchWeather } from "../actions/actionCreators";
+// import { PropagateLoader } from "react-spinners";
+
+
 
 
 class App extends Component {
@@ -17,6 +24,7 @@ class App extends Component {
         <ForecastCard 
           city={this.props.city}
           forecast={this.props.forecast}
+          data={this.props.data}
         />
       </div>
     );
@@ -34,8 +42,27 @@ const mapStateToProps = (state) => {
   const cityLon = getCityLon(state)
   const forecast = weatherSampleSelector(state)
   const city = { cityName, cityLat, cityLon }
-  
-  return { city, forecast }
+  const data = state.forecast
+  const weather = lvlWeather(state)
+  return { city, forecast, data, weather }
 }
 
+
+// function mapDispatchToProps(dispatch) {
+//   // object destructuring: {fetchUsers (prop): fetchUsers (action creator)}
+//   return bindActionCreators({ fetchWeather }, dispatch);
+// }
+
 export default connect(mapStateToProps)(App)
+
+
+//optionally:
+
+// const enhance = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// );
+// const AppWithRedux = enhance(App);
+
+// export { App, AppWithRedux };
+

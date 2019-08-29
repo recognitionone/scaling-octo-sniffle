@@ -8,7 +8,7 @@ getGalleryStateList(store)
 
 function getWeatherSample(store) {
   let sampleObj = {}
-  for (var i=0; i<10; i++) {
+  for (var i=0; i<1; i++) {
     sampleObj[i] = {
       temp: getGalleryStateList(store)[i].main,
       date: getGalleryStateList(store)[i].dt_txt,
@@ -33,3 +33,27 @@ export const getCityLon = (store) =>
   getGalleryStateCity(store)
   ? getGalleryStateCity(store).coord.lon
   : 'Loading...'
+
+
+//weather
+export const lvlApp = (store) => store.forecast
+
+function getlvlFL(store) {
+  Object.entries(lvlApp(store)).map(d => ({ 
+    d: {
+      city: d.city,
+      list: d.list,
+    }
+  }))
+}
+
+export const lvlFL = (store) =>
+  lvlApp(store)
+  ? getlvlFL(store)
+  : {}
+
+export const lvlWeather = (store) => 
+  Object.entries(getlvlFL(store)).map((d, i) => {
+      return { day: i, value: d.main.temp };
+    });
+
